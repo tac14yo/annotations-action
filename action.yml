@@ -23,6 +23,9 @@ inputs:
     description: 'Ignore if the file which contains annotations is missing'
     required: false
     default: 'true'
+  ref:
+    description: 'The reference commit SHA to use for the check run'
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
