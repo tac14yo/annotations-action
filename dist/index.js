@@ -8632,11 +8632,17 @@ async function run () {
 
     const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(repoToken)
     const pullRequest = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request
-    let ref
-    if (pullRequest) {
-      ref = pullRequest.head.sha
+    const customRef = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('ref', { required: false })
+    let ref;
+    if (customRef) {
+      ref = customRef;
     } else {
-      ref = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.sha
+      const pullRequest = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request
+      if (pullRequest) {
+        ref = pullRequest.head.sha;
+      } else {
+        ref = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.sha;
+      }
     }
     const owner = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.owner
     const repo = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.repo
