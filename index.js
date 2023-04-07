@@ -140,11 +140,14 @@ async function run () {
 
     const octokit = getOctokit(repoToken)
     const pullRequest = context.payload.pull_request
+    const customRef = getInput('ref', { required: false });
     let ref
-    if (pullRequest) {
-      ref = pullRequest.head.sha
+    if (customRef) {
+      ref = customRef;
+    } else if (pullRequest) {
+      ref = pullRequest.head.sha;
     } else {
-      ref = context.sha
+      ref = context.sha;
     }
     const owner = context.repo.owner
     const repo = context.repo.repo
